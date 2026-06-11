@@ -19,6 +19,23 @@ const saveInventory = (inv: Record<string, number>) => {
   localStorage.setItem('cityrun_inventory', JSON.stringify(inv));
 };
 
+// ── Equipped Trail helpers ──────────────────────────────────────────────────
+const loadEquippedTrail = (): string | null => {
+  try {
+    return localStorage.getItem('cityrun_equipped_trail');
+  } catch {
+    return null;
+  }
+};
+
+const saveEquippedTrail = (trailId: string | null) => {
+  if (trailId) {
+    localStorage.setItem('cityrun_equipped_trail', trailId);
+  } else {
+    localStorage.removeItem('cityrun_equipped_trail');
+  }
+};
+
 // Helper to generate obstacles for a tile, ensuring they are solvable
 const generateObstaclesForTile = (tileZ: number, isInitial: boolean = false): Obstacle[] => {
   // First two tiles should have no obstacles to give the player a fair start
@@ -139,8 +156,9 @@ export const useGameStore = create<GameStore>((set, get) => ({
   gameState: 'MENU',
   score: 0,
   highScore: parseInt(localStorage.getItem('cityrun_highscore') || '0', 10),
-  currency: parseInt(localStorage.getItem('cityrun_currency') || '0', 10),
+  currency: Math.max(9999, parseInt(localStorage.getItem('cityrun_currency') || '0', 10)),
   inventory: loadInventory(),
+  equippedTrail: loadEquippedTrail(),
   speed: BASE_SPEED,
   playerLane: 0,
   isJumping: false,
@@ -180,6 +198,11 @@ export const useGameStore = create<GameStore>((set, get) => ({
     const newInventory = { ...inventory, [itemId]: current - 1 };
     saveInventory(newInventory);
     set({ inventory: newInventory });
+  },
+
+  equipTrail: (trailId) => {
+    saveEquippedTrail(trailId);
+    set({ equippedTrail: trailId });
   },
 
   setIsShieldActive: (active) => {
@@ -248,6 +271,14 @@ export const useGameStore = create<GameStore>((set, get) => ({
       tiles: createInitialTiles(),
       pedestrianHits: 0,
     });
+  },
+
+  enterGarage: () => {
+    set({ gameState: 'GARAGE' });
+  },
+
+  exitGarage: () => {
+    set({ gameState: 'MENU' });
   },
 
   setTimeOfDay: (time) => {

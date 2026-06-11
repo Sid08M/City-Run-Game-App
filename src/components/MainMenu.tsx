@@ -4,6 +4,7 @@ import { useGameStore } from '../state/useGameStore';
 export const MainMenu: React.FC = () => {
   const highScore = useGameStore((state) => state.highScore);
   const startGame = useGameStore((state) => state.startGame);
+  const enterGarage = useGameStore((state) => state.enterGarage);
   const setTimeOfDay = useGameStore((state) => state.setTimeOfDay);
   const timeOfDay = useGameStore((state) => state.timeOfDay);
 
@@ -37,6 +38,10 @@ export const MainMenu: React.FC = () => {
 
         <button className="btn-neon" onClick={startGame}>
           START RUN
+        </button>
+
+        <button className="btn-secondary" onClick={enterGarage}>
+          GARAGE
         </button>
 
         <div className="controls-guide">

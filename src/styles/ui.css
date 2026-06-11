@@ -137,6 +137,36 @@
   transform: translateY(1px);
 }
 
+.btn-secondary {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 1.5px;
+  padding: 0.9rem 2.5rem;
+  color: #ffffff;
+  background: transparent;
+  border: 2px solid var(--neon-pink);
+  border-radius: 40px;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 15px rgba(255, 0, 170, 0.2), inset 0 0 15px rgba(255, 0, 170, 0.1);
+  transition: all 0.25s ease-out;
+  margin-top: 1rem;
+}
+
+.btn-secondary:hover {
+  background: var(--neon-pink);
+  color: var(--bg-dark);
+  box-shadow: 0 0 30px var(--neon-pink);
+  transform: translateY(-2px);
+}
+
+.btn-secondary:active {
+  transform: translateY(1px);
+}
+
 .controls-guide {
   margin-top: 3rem;
   width: 100%;

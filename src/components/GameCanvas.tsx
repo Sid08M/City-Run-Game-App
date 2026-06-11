@@ -6,6 +6,8 @@ import { Player } from './Player';
 import { Track } from './Track';
 import { AudioManager } from './AudioManager';
 import { SceneEnvironment } from './SceneEnvironment';
+import { TrailRenderer } from './TrailRenderer';
+import { LightningTrail } from './LightningTrail';
 
 // Ticker component drives the store tick
 const GameLoopTicker: React.FC = () => {
@@ -66,6 +68,8 @@ export const GameCanvas: React.FC = () => {
         <SceneEnvironment />
         <Track />
         <Player />
+        <TrailRenderer />
+        <LightningTrail />
         <CameraManager />
         <GameLoopTicker />
         <AudioManager />

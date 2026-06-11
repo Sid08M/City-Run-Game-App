@@ -5,6 +5,7 @@ import { GameCanvas } from './components/GameCanvas';
 import { MainMenu } from './components/MainMenu';
 import { HUD } from './components/HUD';
 import { GameOver } from './components/GameOver';
+import { Garage } from './components/Garage';
 import './styles/ui.css';
 
 const App: React.FC = () => {
@@ -25,6 +26,8 @@ const App: React.FC = () => {
         {gameState === 'PLAYING' && <HUD />}
         
         {gameState === 'GAME_OVER' && <GameOver />}
+
+        {gameState === 'GARAGE' && <Garage />}
       </div>
     </div>
   );

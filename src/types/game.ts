@@ -1,4 +1,4 @@
-export type GameState = 'MENU' | 'PLAYING' | 'GAME_OVER';
+export type GameState = 'MENU' | 'PLAYING' | 'GAME_OVER' | 'GARAGE';
 
 export type TimeOfDay = 'MORNING' | 'AFTERNOON' | 'EVENING' | 'NIGHT';
 
@@ -6,12 +6,12 @@ export type ObstacleType = 'HURDLE' | 'BARRICADE' | 'PEDESTRIAN' | 'TOKEN' | 'OV
 
 export interface ShopItem {
   id: string;
-  category: 'enhancement' | 'consumable';
+  category: 'enhancement' | 'consumable' | 'cosmetic';
   name: string;
   description: string;
   icon: string;
   cost: number;
-  maxLevel: number; // For enhancements: max upgrade level. For consumables: max stack.
+  maxLevel: number; // For enhancements: max upgrade level. For consumables: max stack. For cosmetics: always 1.
 }
 
 export interface Obstacle {
@@ -44,11 +44,13 @@ export interface GameStore {
   currency: number;
   pedestrianHits: number;
   inventory: Record<string, number>; // itemId -> count/level
+  equippedTrail: string | null; // cosmetic trail ID
 
   addCurrency: (amount: number) => void;
   unlockItem: (itemId: string, cost: number, maxLevel: number) => boolean;
   consumeItem: (itemId: string) => void;
   setIsShieldActive: (active: boolean) => void;
+  equipTrail: (trailId: string | null) => void;
   startGame: () => void;
   gameOver: () => void;
   restartGame: () => void;
@@ -58,6 +60,8 @@ export interface GameStore {
   tick: (dt: number) => void;
   resetTrack: () => void;
   returnToMenu: () => void;
+  enterGarage: () => void;
+  exitGarage: () => void;
   setTimeOfDay: (time: TimeOfDay) => void;
   removeObstacle: (id: string) => void;
 }
